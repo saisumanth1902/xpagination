@@ -3,11 +3,10 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
-  const [employees, setEmployees] = useState([]); // State for all employees
-  const [currentPage, setCurrentPage] = useState(1); // State for current page
-  const employeesPerPage = 10; // Number of employees per page
+  const [employees, setEmployees] = useState([]); 
+  const [currentPage, setCurrentPage] = useState(1); 
+  const employeesPerPage = 10;
 
-  // Fetch employees on initial render
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
@@ -17,22 +16,21 @@ function App() {
         setEmployees(response.data);
       } catch (error) {
         console.error('Error fetching employees:', error);
-        alert('failed to fetch data'); // Display alert on failure
+        alert('failed to fetch data');
       }
     };
 
     fetchEmployees();
-  }, []); // Empty dependency array to run only on mount
+  }, []); 
 
-  // Calculate total pages
   const totalPages = Math.ceil(employees.length / employeesPerPage);
 
-  // Get employees for the current page
+
   const indexOfLastEmployee = currentPage * employeesPerPage;
   const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
   const currentEmployees = employees.slice(indexOfFirstEmployee, indexOfLastEmployee);
 
-  // Handle pagination
+
   const handleNext = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
